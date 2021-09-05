@@ -1,0 +1,339 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/collisionBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/PlayerController.tscn" type="PackedScene" id=2]
+[ext_resource path="res://textures/basicfloor.png" type="Texture" id=3]
+[ext_resource path="res://maps/worldone.gd" type="Script" id=4]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( 0.125, 0.125, 0.125 )
+uv1_triplanar = true
+
+[node name="worldone" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="lights" type="Spatial" parent="."]
+
+[node name="sun" type="DirectionalLight" parent="lights"]
+transform = Transform( 0.991558, 0.103868, -0.0776102, 0, 0.598562, 0.801076, 0.129661, -0.794314, 0.59351, -12.8502, 11.0197, 18.4217 )
+shadow_enabled = true
+
+[node name="ground" type="Spatial" parent="."]
+
+[node name="collisionBox" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 0, -4, 0 )
+
+[node name="collisionBox4" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 0, -4, -32 )
+
+[node name="collisionBox5" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 0, -4, 32 )
+
+[node name="collisionBox6" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -32, -4, 0 )
+
+[node name="collisionBox7" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -32, -4, -32 )
+
+[node name="collisionBox8" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -32, -4, 32 )
+
+[node name="collisionBox9" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 32, -4, 0 )
+
+[node name="collisionBox10" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 32, -4, -32 )
+
+[node name="collisionBox11" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 32, -4, 32 )
+
+[node name="collisionBox16" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 96, -4, 0 )
+
+[node name="collisionBox17" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 96, -4, -32 )
+
+[node name="collisionBox18" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 96, -4, 32 )
+
+[node name="collisionBox19" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 64, -4, 0 )
+
+[node name="collisionBox20" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 64, -4, -32 )
+
+[node name="collisionBox21" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 64, -4, 32 )
+
+[node name="collisionBox22" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 128, -4, 0 )
+
+[node name="collisionBox23" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 128, -4, -32 )
+
+[node name="collisionBox24" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 128, -4, 32 )
+
+[node name="collisionBox25" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 0, -4, 96 )
+
+[node name="collisionBox26" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 0, -4, 64 )
+
+[node name="collisionBox27" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 0, -4, 128 )
+
+[node name="collisionBox28" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -32, -4, 96 )
+
+[node name="collisionBox29" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -32, -4, 64 )
+
+[node name="collisionBox30" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -32, -4, 128 )
+
+[node name="collisionBox31" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 32, -4, 96 )
+
+[node name="collisionBox32" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 32, -4, 64 )
+
+[node name="collisionBox33" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 32, -4, 128 )
+
+[node name="collisionBox34" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 96, -4, 96 )
+
+[node name="collisionBox35" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 96, -4, 64 )
+
+[node name="collisionBox36" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 96, -4, 128 )
+
+[node name="collisionBox37" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 64, -4, 96 )
+
+[node name="collisionBox38" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 64, -4, 64 )
+
+[node name="collisionBox39" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 64, -4, 128 )
+
+[node name="collisionBox40" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 128, -4, 96 )
+
+[node name="collisionBox41" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 128, -4, 64 )
+
+[node name="collisionBox42" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 128, -4, 128 )
+
+[node name="collisionBox43" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -96, -4, 0 )
+
+[node name="collisionBox44" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -96, -4, -32 )
+
+[node name="collisionBox45" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -96, -4, 32 )
+
+[node name="collisionBox46" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -128, -4, 0 )
+
+[node name="collisionBox47" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -128, -4, -32 )
+
+[node name="collisionBox48" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -128, -4, 32 )
+
+[node name="collisionBox49" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -64, -4, 0 )
+
+[node name="collisionBox50" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -64, -4, -32 )
+
+[node name="collisionBox51" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -64, -4, 32 )
+
+[node name="collisionBox52" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -96, -4, 96 )
+
+[node name="collisionBox53" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -96, -4, 64 )
+
+[node name="collisionBox54" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -96, -4, 128 )
+
+[node name="collisionBox55" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -128, -4, 96 )
+
+[node name="collisionBox56" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -128, -4, 64 )
+
+[node name="collisionBox57" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -128, -4, 128 )
+
+[node name="collisionBox58" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -64, -4, 96 )
+
+[node name="collisionBox59" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -64, -4, 64 )
+
+[node name="collisionBox60" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -64, -4, 128 )
+
+[node name="collisionBox61" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 0, -4, -96 )
+
+[node name="collisionBox62" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 0, -4, -128 )
+
+[node name="collisionBox63" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 0, -4, -64 )
+
+[node name="collisionBox64" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -32, -4, -96 )
+
+[node name="collisionBox65" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -32, -4, -128 )
+
+[node name="collisionBox66" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -32, -4, -64 )
+
+[node name="collisionBox67" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 32, -4, -96 )
+
+[node name="collisionBox68" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 32, -4, -128 )
+
+[node name="collisionBox69" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 32, -4, -64 )
+
+[node name="collisionBox70" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 96, -4, -96 )
+
+[node name="collisionBox71" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 96, -4, -128 )
+
+[node name="collisionBox72" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 96, -4, -64 )
+
+[node name="collisionBox73" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 64, -4, -96 )
+
+[node name="collisionBox74" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 64, -4, -128 )
+
+[node name="collisionBox75" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 64, -4, -64 )
+
+[node name="collisionBox76" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 128, -4, -96 )
+
+[node name="collisionBox77" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 128, -4, -128 )
+
+[node name="collisionBox78" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, 128, -4, -64 )
+
+[node name="collisionBox79" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -96, -4, -96 )
+
+[node name="collisionBox80" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -96, -4, -128 )
+
+[node name="collisionBox81" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -96, -4, -64 )
+
+[node name="collisionBox82" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -128, -4, -96 )
+
+[node name="collisionBox83" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -128, -4, -128 )
+
+[node name="collisionBox84" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -128, -4, -64 )
+
+[node name="collisionBox85" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -64, -4, -96 )
+
+[node name="collisionBox86" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -64, -4, -128 )
+
+[node name="collisionBox87" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 16, -64, -4, -64 )
+
+[node name="collisionBox3" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 5, -9, 3.1021, -15 )
+
+[node name="collisionBox12" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 3, 0, 0, 0, 0.925514, -1.89357, 0, 0.378713, 4.62757, 2, 0.894402, -15 )
+
+[node name="collisionBox13" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 5, 2, 2.71839, -24.2478 )
+
+[node name="collisionBox14" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 3, 0, 0, 0, 0.925514, -1.89357, 0, 0.378713, 4.62757, 14, 0.894402, -15 )
+
+[node name="collisionBox15" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 3, 0, 0, 0, 0.707107, -3.53553, 0, 0.707107, 3.53553, 14, 5.98072, -22.5886 )
+
+[node name="collisionBox2" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, -7 )
+
+[node name="collisionBox88" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 100, 0, -4, 244 )
+
+[node name="collisionBox89" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 100, -32, -4, 244 )
+
+[node name="collisionBox90" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 100, 32, -4, 244 )
+
+[node name="collisionBox91" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 100, 96, -4, 244 )
+
+[node name="collisionBox92" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 100, 64, -4, 244 )
+
+[node name="collisionBox93" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 100, 128, -4, 244 )
+
+[node name="collisionBox94" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 100, -96, -4, 244 )
+
+[node name="collisionBox95" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 100, -128, -4, 244 )
+
+[node name="collisionBox96" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 16, 0, 0, 0, 4, 0, 0, 0, 100, -64, -4, 244 )
+
+[node name="groundtwo" type="Spatial" parent="."]
+
+[node name="CSGCombiner" type="CSGCombiner" parent="groundtwo"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 192 )
+material_override = SubResource( 1 )
+use_collision = true
+
+[node name="CSGBox" type="CSGBox" parent="groundtwo/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 59 )
+width = 286.0
+height = 76.0
+depth = 236.0
+
+[node name="CSGCylinder" type="CSGCylinder" parent="groundtwo/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 30.0861, 30 )
+operation = 2
+radius = 31.0421
+height = 181.717
+sides = 14
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="groundtwo/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -74.4882, 16.1046, 30 )
+operation = 2
+radius = 16.754
+height = 181.717
+sides = 14
+
+[node name="PlayerController" parent="." instance=ExtResource( 2 )]
