@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/GGS/_depedencies/json_beautifier/json_beautifier.gd"
 }, {
+"base": "KinematicBody",
+"class": "PlayerObject",
+"language": "GDScript",
+"path": "res://objects/PlayerController.gd"
+}, {
 "base": "Node",
 "class": "Utils",
 "language": "GDScript",
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "BaseInput": "",
 "BoneHandle": "",
 "JSONBeautifier": "",
+"PlayerObject": "",
 "Utils": ""
 }
 

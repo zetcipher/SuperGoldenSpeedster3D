@@ -9,13 +9,13 @@ const ACCEL2 := 7.5
 const ACCEL3 := 2.5
 const DECEL := 45
 const SHARP_DECEL := 80
-const TOP_DECEL := 0.25
+const TOP_DECEL := 0.5
 const AIR_ACCEL := 10
 const AIR_IDLE_DECEL := 2.5
 const TURN_SPEED := 180
 const AIR_TURN_SPEED := 240
 const SHARP_TURN_THRESHOLD := 140
-const JUMP_FORCE := 30
+const JUMP_FORCE := 50
 const UP_VEC := Vector3(0, 1, 0)
 
 var velocity : Vector3 = Vector3.ZERO
@@ -115,12 +115,17 @@ func _physics_process(delta):
 		upvector = Vector3.UP
 		floorNorm = Vector3.UP
 	
-	slopeAccelMult = -dir.y + 1
-	print(slopeAccelMult)
+	slopeAccelMult = (-dir.y * 2) + 1
+	#print(slopeAccelMult)
+	
+	var boostButton = Input.is_action_pressed("action1")
+	var boostReleased = Input.is_action_just_released("action1")
+	var trailTimer: float
 	
 	if not is_on_floor() and Input.is_action_just_pressed("action2"):
 		hspeed = 0
-		vv = 80 * Vector3.DOWN
+		trailTimer = 5
+		vv = 120 * Vector3.DOWN
 	
 	if not is_on_floor():
 		vv += gravityVector * (delta * gravityStrength)
@@ -148,7 +153,7 @@ func _physics_process(delta):
 		if hspeed > TOP_SPEED2 and hspeed < TOP_SPEED3:
 			hspeed += ACCEL3 * delta * slopeAccelMult
 		if hspeed > TOP_SPEED3:
-			hspeed -= TOP_DECEL * delta * slopeAccelMult
+			hspeed -= (TOP_DECEL - ((-dir.y * 4) + 1)) * delta
 	else:
 		if dir.length() > 0.05:
 			if is_on_floor():
@@ -167,9 +172,7 @@ func _physics_process(delta):
 #	dirXform = Transform(Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), hdir)
 #	dirXform = align_with_y(dirXform, floorNorm)
 	
-	var boostButton = Input.is_action_pressed("action1")
-	var boostReleased = Input.is_action_just_released("action1")
-	var trailTimer: float
+	
 	
 	if hspeed > TOP_SPEED3 - 1 and trailTimer < 3:
 		trailTimer = 2
@@ -213,10 +216,11 @@ func _physics_process(delta):
 	facingMesh = (facingMesh - upvector * facingMesh.dot(upvector)).normalized()
 	
 	if hspeed > 0:
-		facingMesh = adjust_facing(facingMesh, dir, delta, 1.0 / hspeed * TURN_SPEED, upvector)
+		facingMesh = adjust_facing(facingMesh, dir, delta, 1.0 / hspeed * TURN_SPEED * 12, upvector)
 	var m3 = Basis(-facingMesh, upvector, -facingMesh.cross(upvector).normalized()).scaled(Vector3.ONE)
+	var modelXform = Transform(m3, meshXform.origin)
 	
-	$container.set_transform(Transform(m3, meshXform.origin))
+	$container.set_transform($container.transform.interpolate_with(Transform(m3, meshXform.origin), 0.2))
 	
 	#$CameraContainer.rotation = -rotation
 	#print($CameraContainer.rotation_degrees)
@@ -230,8 +234,6 @@ func _physics_process(delta):
 		floorNorm = Vector3.UP
 		upvector = Vector3.UP
 	# Assign hvel's values back to velocity, and then move.
-	if not is_on_floor():
-		vv.y += hv.y / 2
 	vel1 = hv
 	vel2 = vv
 	

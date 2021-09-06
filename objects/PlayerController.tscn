@@ -25,7 +25,7 @@ shape = SubResource( 4 )
 
 [node name="RayCast" type="RayCast" parent="CollisionCapsule"]
 enabled = true
-cast_to = Vector3( 0, -2, 0 )
+cast_to = Vector3( 0, -1.75, 0 )
 
 [node name="container" type="Spatial" parent="."]
 

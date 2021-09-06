@@ -13,6 +13,8 @@ var p_mSpeed : float = 100 # speed cap minus 20
 var p_vel : Vector3 = Vector3.ZERO
 var p_rot : Vector3 = Vector3.ZERO
 
+var coins : int = 0
+
 #Screen Variables
 onready var screenRes := OS.window_size
 var renderScale := 1.0 #percent

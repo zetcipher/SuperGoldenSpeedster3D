@@ -27,6 +27,7 @@ func _process(delta):
 	$Control/LeftSide/rot3.text = str("RZ: ", G.p_rot.z)
 	$Control/LeftSide/BoostMeter.max_value = G.p_mBoost
 	$Control/LeftSide/BoostMeter.value = G.p_boost
+	$Control/LeftSide/coins.text = str("%03d" % G.coins)
 	$Control/RightSide/Speedometer.max_value = G.p_mSpeed
 	$Control/RightSide/Speedometer.value = G.p_speed
 	#$Control/Bars/HealthMeter.frame = G.p_HP

@@ -1,5 +1,7 @@
 extends KinematicBody
 
+class_name PlayerObject
+
 const MIN_SPEED := 1
 const TOP_SPEED := 15
 const TOP_SPEED2 := 30
