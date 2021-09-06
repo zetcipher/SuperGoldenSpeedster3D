@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://objects/PlayerController.tscn" type="PackedScene" id=1]
+[ext_resource path="res://models/maps/map02.glb" type="PackedScene" id=2]
+
+[sub_resource type="ProceduralSky" id=2]
+sky_top_color = Color( 0.215686, 0, 0.454902, 1 )
+sky_horizon_color = Color( 1, 0.670588, 0.152941, 1 )
+sun_color = Color( 1, 0.698039, 0, 1 )
+sun_latitude = 12.07
+sun_longitude = -167.39
+sun_angle_max = 18.34
+sun_energy = 17.31
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 2 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.35
+
+[node name="map02" type="Spatial"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment"]
+transform = Transform( -0.864163, 0.476559, -0.161599, -0.483946, -0.699048, 0.52643, 0.13791, 0.533126, 0.83472, 0, 90.9382, 210.904 )
+light_color = Color( 1, 0.854902, 0.603922, 1 )
+shadow_enabled = true
+shadow_bias = 1.19
+
+[node name="PlayerController" parent="WorldEnvironment" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75037, 37.9258, -69.3313 )
+
+[node name="map02" parent="WorldEnvironment" instance=ExtResource( 2 )]
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
+
+[editable path="WorldEnvironment/map02"]

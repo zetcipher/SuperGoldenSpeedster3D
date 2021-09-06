@@ -1,0 +1,469 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/collisionBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/PlayerController.tscn" type="PackedScene" id=2]
+[ext_resource path="res://maps/floormaterial.tres" type="Material" id=3]
+[ext_resource path="res://maps/worldone.gd" type="Script" id=4]
+[ext_resource path="res://objects/Coin.tscn" type="PackedScene" id=5]
+
+[node name="worldtwo" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="lights" type="Spatial" parent="."]
+
+[node name="sun" type="DirectionalLight" parent="lights"]
+transform = Transform( -0.639976, -0.615543, 0.459932, 0, 0.598562, 0.801076, -0.768395, 0.512669, -0.383065, -12.8502, 11.0197, 18.4217 )
+shadow_enabled = true
+
+[node name="ground" type="Spatial" parent="."]
+
+[node name="collisionBox" parent="ground" instance=ExtResource( 1 )]
+transform = Transform( 8, 0, 0, 0, 4, 0, 0, 0, 8, 0, -4, 129 )
+
+[node name="groundtwo" type="Spatial" parent="."]
+
+[node name="boundingarea" type="CSGCombiner" parent="groundtwo"]
+material_override = ExtResource( 3 )
+use_collision = true
+
+[node name="CSGBox" type="CSGBox" parent="groundtwo/boundingarea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -33.2576, 0 )
+width = 550.0
+height = 300.0
+depth = 550.0
+
+[node name="CSGBox2" type="CSGBox" parent="groundtwo/boundingarea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 60.0364, 0 )
+operation = 2
+width = 500.0
+height = 130.095
+depth = 500.0
+
+[node name="CSGCombiner" type="CSGCombiner" parent="groundtwo"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 192 )
+material_override = ExtResource( 3 )
+use_collision = true
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="groundtwo/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -74.4882, 16.1046, 30 )
+operation = 2
+radius = 16.754
+height = 181.717
+sides = 14
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="groundtwo/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, -143.195, 35.348, 126.878 )
+radius = 30.4614
+height = 24.5663
+sides = 12
+
+[node name="CSGCombiner2" type="CSGCombiner" parent="groundtwo"]
+material_override = ExtResource( 3 )
+use_collision = true
+
+[node name="CSGBox2" type="CSGBox" parent="groundtwo/CSGCombiner2"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -79.9606, 3, 56.0408 )
+width = 52.8309
+height = 76.0
+depth = 171.438
+
+[node name="CSGBox3" type="CSGBox" parent="groundtwo/CSGCombiner2"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 214.363, -16.8448, 224.104 )
+width = 55.0
+height = 96.6328
+depth = 55.0
+
+[node name="CSGBox4" type="CSGBox" parent="groundtwo/CSGCombiner2"]
+transform = Transform( -4.37114e-08, 0, 1, 0.221225, 0.975223, 9.67006e-09, -0.975223, 0.221225, -4.26283e-08, 234.922, 29.7514, 169.192 )
+width = 82.4804
+height = 15.8924
+depth = 19.6514
+
+[node name="CSGCylinder" type="CSGCylinder" parent="groundtwo/CSGCombiner2"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -79.336, 21.2919, 51.9606 )
+operation = 2
+radius = 27.0106
+height = 61.1585
+sides = 14
+
+[node name="CSGSphere" type="CSGSphere" parent="groundtwo/CSGCombiner2"]
+transform = Transform( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 185.748, 32.3039, 196.525 )
+operation = 2
+radius = 41.0733
+
+[node name="CSGBox5" type="CSGBox" parent="groundtwo/CSGCombiner2"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 234.922, 38.6673, 89.5418 )
+width = 82.4804
+height = 15.8924
+depth = 19.6514
+
+[node name="CSGCombiner3" type="CSGCombiner" parent="groundtwo"]
+material_override = ExtResource( 3 )
+use_collision = true
+
+[node name="CSGBox6" type="CSGBox" parent="groundtwo/CSGCombiner3"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 234.922, 38.6673, 89.5418 )
+width = 82.4804
+height = 15.8924
+depth = 19.6514
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="groundtwo/CSGCombiner3"]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 231.539, 28.2919, 48.4802 )
+radius = 19.0
+height = 22.8478
+sides = 16
+
+[node name="CSGBox7" type="CSGBox" parent="groundtwo/CSGCombiner3"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 234.922, 16.6673, 7.5418 )
+operation = 1
+width = 82.4804
+height = 60.0
+depth = 19.6514
+
+[node name="CSGBox8" type="CSGBox" parent="groundtwo/CSGCombiner3"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 234.922, 8.66727, 25.5418 )
+width = 44.0
+height = 39.2775
+depth = 19.6514
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="groundtwo/CSGCombiner3"]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 231.539, 28.2919, 10.4802 )
+operation = 2
+radius = 19.0
+height = 22.8478
+sides = 16
+
+[node name="CSGBox9" type="CSGBox" parent="groundtwo/CSGCombiner3"]
+transform = Transform( -4.37114e-08, 0, -1, -0.329361, 0.944204, 1.43968e-08, 0.944204, 0.329361, -4.12725e-08, 234.922, 9.70817, -18.0655 )
+width = 55.9667
+height = 15.8924
+depth = 19.6514
+
+[node name="CSGBox10" type="CSGBox" parent="groundtwo/CSGCombiner3"]
+transform = Transform( -4.37114e-08, 0, -1, -0.141644, 0.989918, 6.19147e-09, 0.989918, 0.141644, -4.32707e-08, 234.922, 20.3563, -55.6196 )
+width = 25.5327
+height = 15.8924
+depth = 19.6514
+
+[node name="CSGBox11" type="CSGBox" parent="groundtwo/CSGCombiner3"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 234.922, 22.0837, -84.402 )
+width = 34.5523
+height = 15.8924
+depth = 19.6514
+
+[node name="CSGBox12" type="CSGBox" parent="groundtwo/CSGCombiner3"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 222.988, 30.0837, -195.515 )
+width = 120.0
+height = 6.0
+depth = 38.0
+
+[node name="CSGBox13" type="CSGBox" parent="groundtwo/CSGCombiner3"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 152.988, 41.0837, -232.515 )
+width = 44.0
+height = 6.0
+depth = 38.0
+
+[node name="PlayerController" parent="." instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.45251, 1, 126.495 )
+
+[node name="coins" type="Spatial" parent="."]
+
+[node name="Coin" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.69827, -11.587 )
+
+[node name="Coin2" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.69827, -11.587 )
+
+[node name="Coin3" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.69827, -11.587 )
+
+[node name="Coin4" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69827, -11.587 )
+
+[node name="Coin5" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.69827, -11.587 )
+
+[node name="Coin6" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.69827, -9.587 )
+
+[node name="Coin7" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.69827, -9.587 )
+
+[node name="Coin8" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.69827, -9.587 )
+
+[node name="Coin9" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69827, -9.587 )
+
+[node name="Coin10" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.69827, -9.587 )
+
+[node name="Coin11" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.69827, -7.587 )
+
+[node name="Coin12" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.69827, -7.587 )
+
+[node name="Coin13" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.69827, -7.587 )
+
+[node name="Coin14" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69827, -7.587 )
+
+[node name="Coin15" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.69827, -7.587 )
+
+[node name="Coin16" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.69827, -5.587 )
+
+[node name="Coin17" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.69827, -5.587 )
+
+[node name="Coin18" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.69827, -5.587 )
+
+[node name="Coin19" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69827, -5.587 )
+
+[node name="Coin20" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.69827, -5.587 )
+
+[node name="Coin21" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.69827, -3.587 )
+
+[node name="Coin22" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.69827, -3.587 )
+
+[node name="Coin23" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.69827, -3.587 )
+
+[node name="Coin24" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69827, -3.587 )
+
+[node name="Coin25" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.69827, -3.587 )
+
+[node name="Coin26" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.69827, -11.587 )
+
+[node name="Coin27" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.69827, -11.587 )
+
+[node name="Coin28" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.69827, -11.587 )
+
+[node name="Coin29" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.69827, -11.587 )
+
+[node name="Coin30" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3.69827, -11.587 )
+
+[node name="Coin31" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.69827, -9.587 )
+
+[node name="Coin32" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.69827, -9.587 )
+
+[node name="Coin33" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.69827, -9.587 )
+
+[node name="Coin34" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.69827, -9.587 )
+
+[node name="Coin35" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3.69827, -9.587 )
+
+[node name="Coin36" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.69827, -7.587 )
+
+[node name="Coin37" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.69827, -7.587 )
+
+[node name="Coin38" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.69827, -7.587 )
+
+[node name="Coin39" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.69827, -7.587 )
+
+[node name="Coin40" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3.69827, -7.587 )
+
+[node name="Coin41" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.69827, -5.587 )
+
+[node name="Coin42" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.69827, -5.587 )
+
+[node name="Coin43" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.69827, -5.587 )
+
+[node name="Coin44" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.69827, -5.587 )
+
+[node name="Coin45" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3.69827, -5.587 )
+
+[node name="Coin46" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.69827, -3.587 )
+
+[node name="Coin47" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.69827, -3.587 )
+
+[node name="Coin48" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.69827, -3.587 )
+
+[node name="Coin49" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.69827, -3.587 )
+
+[node name="Coin50" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3.69827, -3.587 )
+
+[node name="Coin51" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5.69827, -11.587 )
+
+[node name="Coin52" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.69827, -11.587 )
+
+[node name="Coin53" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5.69827, -11.587 )
+
+[node name="Coin54" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.69827, -11.587 )
+
+[node name="Coin55" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5.69827, -11.587 )
+
+[node name="Coin56" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5.69827, -9.587 )
+
+[node name="Coin57" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.69827, -9.587 )
+
+[node name="Coin58" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5.69827, -9.587 )
+
+[node name="Coin59" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.69827, -9.587 )
+
+[node name="Coin60" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5.69827, -9.587 )
+
+[node name="Coin61" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5.69827, -7.587 )
+
+[node name="Coin62" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.69827, -7.587 )
+
+[node name="Coin63" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5.69827, -7.587 )
+
+[node name="Coin64" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.69827, -7.587 )
+
+[node name="Coin65" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5.69827, -7.587 )
+
+[node name="Coin66" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5.69827, -5.587 )
+
+[node name="Coin67" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.69827, -5.587 )
+
+[node name="Coin68" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5.69827, -5.587 )
+
+[node name="Coin69" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.69827, -5.587 )
+
+[node name="Coin70" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5.69827, -5.587 )
+
+[node name="Coin71" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5.69827, -3.587 )
+
+[node name="Coin72" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.69827, -3.587 )
+
+[node name="Coin73" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5.69827, -3.587 )
+
+[node name="Coin74" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.69827, -3.587 )
+
+[node name="Coin75" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5.69827, -3.587 )
+
+[node name="Coin76" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 7.69827, -11.587 )
+
+[node name="Coin77" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 7.69827, -11.587 )
+
+[node name="Coin78" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 7.69827, -11.587 )
+
+[node name="Coin79" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.69827, -11.587 )
+
+[node name="Coin80" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 7.69827, -11.587 )
+
+[node name="Coin81" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 7.69827, -9.587 )
+
+[node name="Coin82" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 7.69827, -9.587 )
+
+[node name="Coin83" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 7.69827, -9.587 )
+
+[node name="Coin84" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.69827, -9.587 )
+
+[node name="Coin85" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 7.69827, -9.587 )
+
+[node name="Coin86" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 7.69827, -7.587 )
+
+[node name="Coin87" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 7.69827, -7.587 )
+
+[node name="Coin88" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 7.69827, -7.587 )
+
+[node name="Coin89" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.69827, -7.587 )
+
+[node name="Coin90" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 7.69827, -7.587 )
+
+[node name="Coin91" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 7.69827, -5.587 )
+
+[node name="Coin92" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 7.69827, -5.587 )
+
+[node name="Coin93" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 7.69827, -5.587 )
+
+[node name="Coin94" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.69827, -5.587 )
+
+[node name="Coin95" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 7.69827, -5.587 )
+
+[node name="Coin96" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 7.69827, -3.587 )
+
+[node name="Coin97" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 7.69827, -3.587 )
+
+[node name="Coin98" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 7.69827, -3.587 )
+
+[node name="Coin99" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.69827, -3.587 )
+
+[node name="Coin100" parent="coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 7.69827, -3.587 )

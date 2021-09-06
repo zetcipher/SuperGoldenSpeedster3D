@@ -115,7 +115,7 @@ func _physics_process(delta):
 		upvector = Vector3.UP
 		floorNorm = Vector3.UP
 	
-	slopeAccelMult = (-dir.y * 2) + 1
+	slopeAccelMult = (-dir.y * 8) + 1
 	#print(slopeAccelMult)
 	
 	var boostButton = Input.is_action_pressed("action1")
@@ -153,7 +153,7 @@ func _physics_process(delta):
 		if hspeed > TOP_SPEED2 and hspeed < TOP_SPEED3:
 			hspeed += ACCEL3 * delta * slopeAccelMult
 		if hspeed > TOP_SPEED3:
-			hspeed -= (TOP_DECEL - ((-dir.y * 4) + 1)) * delta
+			hspeed -= (TOP_DECEL - slopeAccelMult) * delta
 	else:
 		if dir.length() > 0.05:
 			if is_on_floor():
