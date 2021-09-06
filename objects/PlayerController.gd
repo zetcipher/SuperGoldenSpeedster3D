@@ -1,26 +1,28 @@
 extends KinematicBody
 
 const MIN_SPEED := 1
-const TOP_SPEED := 20
-const TOP_SPEED2 := 40
-const TOP_SPEED3 := 60
-const ACCEL := 15
+const TOP_SPEED := 15
+const TOP_SPEED2 := 30
+const TOP_SPEED3 := 45
+const ACCEL := 20
 const ACCEL2 := 7.5
 const ACCEL3 := 2.5
-const DECEL := 30
-const SHARP_DECEL := 60
+const DECEL := 45
+const SHARP_DECEL := 80
+const TOP_DECEL := 0.25
 const AIR_ACCEL := 10
 const AIR_IDLE_DECEL := 2.5
-const TURN_SPEED := 140
-const AIR_TURN_SPEED := 200
-const SHARP_TURN_THRESHOLD := 120
-const JUMP_FORCE := 25
+const TURN_SPEED := 180
+const AIR_TURN_SPEED := 240
+const SHARP_TURN_THRESHOLD := 140
+const JUMP_FORCE := 30
 const UP_VEC := Vector3(0, 1, 0)
 
 var velocity : Vector3 = Vector3.ZERO
 var snapVec : Vector3 = Vector3.ZERO
 var floorRot : Vector3 = Vector3.ZERO
 var floorNorm : Vector3 = Vector3.UP
+var floorMaxAngle : float = 45
 
 var targetSpeed : float = 0
 
@@ -30,10 +32,19 @@ var moveUpStrength : float = 0
 var moveDownStrength : float = 0
 
 var gravityVector = Vector3.DOWN
-onready var gravityStrength = 45
+onready var gravityStrength = 75
 onready var intialPos = translation
 
+var slopeAccelMult : float = 1
+
 onready var camera = $CameraContainer/TrackballCamera
+
+var HP : int = 5
+var mHP : int = 5
+
+var boost : float = 0
+var mBoost : float = 100
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -50,7 +61,7 @@ func _physics_process(delta):
 	moveUpStrength = Input.get_action_strength("move_up")
 	moveDownStrength = Input.get_action_strength("move_down")
 	
-	var vv = velocity.y #vertical velocity
+	var vv = Vector3(0, velocity.y, 0) #vertical velocity
 	var hv = Vector3(velocity.x, 0, velocity.z) #horizontal velocity
 	
 	var hdir = hv.normalized() #horizontal direction
@@ -63,21 +74,53 @@ func _physics_process(delta):
 #	var angle : float
 	dir = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * camBasis[0]
 	dir += (Input.get_action_strength("move_down") - Input.get_action_strength("move_up")) * camBasis[2]
+	
+	var topSpeedMod = dir.length()
+	#print(topSpeedMod)
+#	dir = (Input.get_action_strength("move_up") - Input.get_action_strength("move_down")) * camBasis[0]
+#	dir += (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * camBasis[2]
+	
 #	dir.x = (moveRightStrength - moveLeftStrength) * camBasis.x
 #	dir.z = (moveDownStrength - moveUpStrength) * camBasis.z
-	dir.y = 0
+	#dir.y = 0
+	dir = dir.slide(floorNorm)
+	
 	dir = dir.normalized()
 	
-	var jumpAttempt = Input.is_action_just_pressed("ui_accept")
+	var jumpAttempt = Input.is_action_just_pressed("jump")
 	
 	var sharp_turn = hspeed > 0.1 and rad2deg(acos(dir.dot(hdir))) > SHARP_TURN_THRESHOLD
+	var floorAngle := Vector3()
+	var upvector := Vector3()
+	
+	#print(self.rotation, $CameraContainer.rotation)
+	if is_on_floor():
+		if floorNorm.y < 0.8:
+			floorMaxAngle = 180
+		else:
+			floorMaxAngle = 70
+			self.rotation.y = 0
+		#self.rotation = floorRot
+		upvector = floorNorm
+#		gravityVector = -floorNorm
+		gravityVector = Vector3.DOWN
+		#print(get_floor_normal())
+	else:
+		self.rotation.y = 0
+		floorMaxAngle = 70
+		gravityVector = Vector3.DOWN
+		upvector = Vector3.UP
+		floorNorm = Vector3.UP
+	
+	slopeAccelMult = -dir.y
+	print(slopeAccelMult)
 	
 	if dir.length() > 0.05 and not sharp_turn:
 		if hspeed > 0.001:
 			if is_on_floor():
-				hdir = adjust_facing(hdir, dir, delta, 1.0 / hspeed * TURN_SPEED, Vector3.UP)
+				hdir = adjust_facing(hdir, dir, delta, 1.0 / hspeed * TURN_SPEED, floorNorm)
 			else:
-				hdir = adjust_facing(hdir, dir, delta, 1.0 / hspeed * AIR_TURN_SPEED, Vector3.UP)
+				hdir = adjust_facing(hdir, dir, delta, 1.0 / hspeed * AIR_TURN_SPEED, floorNorm)
 		else:
 			hdir = dir
 		
@@ -90,6 +133,8 @@ func _physics_process(delta):
 			hspeed += ACCEL2 * delta
 		if hspeed > TOP_SPEED2 and hspeed < TOP_SPEED3:
 			hspeed += ACCEL3 * delta
+		if hspeed > TOP_SPEED3:
+			hspeed -= TOP_DECEL * delta
 	else:
 		if dir.length() > 0.05:
 			hspeed -= SHARP_DECEL * delta
@@ -99,34 +144,56 @@ func _physics_process(delta):
 			hspeed -= DECEL * delta
 		if hspeed < 0:
 			hspeed = 0
+		if hspeed > 120:
+			hspeed = 120
+#	var dirXform : Transform
+#	dirXform = Transform(Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), hdir)
+#	dirXform = align_with_y(dirXform, floorNorm)
 	
-	print(hspeed)
+	var boostButton = Input.is_action_pressed("action1")
+	var boostReleased = Input.is_action_just_released("action1")
+	var trailTimer: float
+	
+	if hspeed > TOP_SPEED3 - 1 and trailTimer < 3:
+		trailTimer = 2
+	if boostButton and boost < mBoost + 10:
+		boost += (75 / (hspeed * 0.015 + 0.5)) * delta
+	if boostReleased and boost >= mBoost - 2 and hspeed > 0.05:
+		var boostamt = (100 / (hspeed * 0.25 + 1))
+		if boostamt > 30:
+			boostamt = 30
+		if boostamt < 5:
+			boostamt = 5
+		print(boostamt)
+		hspeed += boostamt
+		trailTimer = 10
+		boost = 0
+	if not boostButton:
+		boost = 0
+	
+	if trailTimer > 0:
+		if trailTimer > 3:
+			$Trail3D.base_width = 1
+		else:
+			$Trail3D.base_width = 0.5
+		trailTimer -= delta
+		$Trail3D.lifetime = 0.25
+	elif $Trail3D.lifetime > 0:
+		$Trail3D.lifetime -= delta * 0.2
+	
+	#print(trailTimer)
+	
+	#print(hspeed)
 	hv = hdir * hspeed
 	
-	var floorAngle := Vector3()
-	var upvector := Vector3()
-	if $RayCast.get_collider() != null:
-		floorRot = $RayCast.get_collider().rotation
-		floorNorm = $RayCast.get_collision_normal()
+	
 		
 	#print(floorAngle, "   ", floorNorm)
 	#var velRot: float
-	var xform = align_with_y(global_transform, floorNorm)
-	global_transform = global_transform.interpolate_with(xform, 0.2)
-	if is_on_floor():
-		#self.rotation = floorRot
-		upvector = floorNorm
-#		gravityVector = -floorNorm
-		gravityVector = Vector3.DOWN
-		#print(get_floor_normal())
-	else:
-		gravityVector = Vector3.DOWN
-		upvector = Vector3.UP
-		floorNorm = Vector3.UP
 	
 	var meshXform = $container.get_transform()
 	var facingMesh = -meshXform.basis[0].normalized()
-	facingMesh = (facingMesh - UP_VEC * facingMesh.dot(UP_VEC)).normalized()
+	facingMesh = (facingMesh - upvector * facingMesh.dot(upvector)).normalized()
 	
 	if hspeed > 0:
 		facingMesh = adjust_facing(facingMesh, dir, delta, 1.0 / hspeed * TURN_SPEED, Vector3.UP)
@@ -134,14 +201,33 @@ func _physics_process(delta):
 	
 	$container.set_transform(Transform(m3, meshXform.origin))
 	
-	$CameraContainer.rotation = -rotation
+	#$CameraContainer.rotation = -rotation
+	#print($CameraContainer.rotation_degrees)
 
 	# Assign hvel's values back to velocity, and then move.
-	velocity.x = hv.x
-	velocity.z = hv.z
+	velocity = hv + vv
+#	velocity.x = hv.x
+#	velocity.z = hv.z
 	
+	#velocity = velocity.rotated(floorNorm, 1)
 	#velocity = velocity.rotated(upvector, 1)
-	velocity = move_and_slide_with_snap(velocity, snapVec, Vector3.UP, false, 4, deg2rad(180))
+	velocity = move_and_slide_with_snap(velocity, snapVec, Vector3.UP, false, 4, deg2rad(floorMaxAngle))
+	G.p_vel = velocity
+	G.p_rot = rotation_degrees
+	
+	if $CollisionCapsule/RayCast.get_collider() != null:
+		floorRot = $CollisionCapsule/RayCast.get_collider().rotation
+		floorNorm = $CollisionCapsule/RayCast.get_collision_normal()
+	else:
+		floorRot = Vector3.ZERO
+		floorNorm = Vector3.UP
+	var xform = align_with_y($CollisionCapsule.get_global_transform(), floorNorm)
+	
+	$CollisionCapsule.set_global_transform($CollisionCapsule.global_transform.interpolate_with(xform, 0.4))
+	$container.scale = Vector3.ONE
+	$direction.rotation = -rotation
+	$direction.cast_to = dir * 3
+	
 	#velocity = move_and_slide(velocity, UP_VEC, false, 4, deg2rad(70))
 	var slides = get_slide_count()
 #	if slides:
@@ -154,12 +240,24 @@ func _physics_process(delta):
 	
 	if jumpAttempt and is_on_floor():
 		snapVec = Vector3.ZERO
-		velocity += (JUMP_FORCE * (1 + hspeed / 100)) * floorNorm
+		velocity += (JUMP_FORCE * (1 + hspeed / 150)) * floorNorm
+		floorNorm = Vector3.UP
+		upvector = Vector3.UP
+	
+	if not is_on_floor() and Input.is_action_just_pressed("action2"):
+		hspeed = 0
+		velocity.y = -80
 	
 	if not is_on_floor():
 		velocity += gravityVector * (delta * gravityStrength)
 	else:
-		velocity += gravityVector * (delta * (gravityStrength / ((hspeed + 1.5) * 0.5)))
+		velocity += gravityVector * (delta * gravityStrength / 4)
+		#velocity += gravityVector * (delta * (gravityStrength / ((hspeed + 0.5) * 0.5)))
+	
+	if velocity.y > 120:
+		velocity.y = 120
+	if velocity.y < -120:
+		velocity.y = -120
 	
 	var new_anim := ""
 	if hspeed < 0.05:
@@ -172,6 +270,15 @@ func _physics_process(delta):
 	if $container/playermodel/AnimationPlayer.current_animation != new_anim:
 		$container/playermodel/AnimationPlayer.play(new_anim)
 	
+	
+	
+	if is_on_floor():
+		G.p_speed = hspeed
+	else:
+		G.p_speed = hspeed
+	
+	G.p_boost = boost
+	G.p_HP = HP
 	
 #	if Input.is_action_pressed("ui_select"):
 #		$CollisionShape2.shape.slips_on_slope = true
