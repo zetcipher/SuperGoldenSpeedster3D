@@ -3,10 +3,7 @@
 [ext_resource path="res://fonts/poco/Poco.ttf" type="DynamicFontData" id=1]
 
 [resource]
-
-size = 40
-use_mipmaps = true
-extra_spacing_top = -18
+size = 10
+outline_size = 1
 extra_spacing_bottom = 2
 font_data = ExtResource( 1 )
-

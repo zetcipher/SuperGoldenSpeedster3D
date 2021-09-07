@@ -8,7 +8,6 @@ extends Area
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	rotation = Vector3.ZERO
 	$AnimationPlayer.play("spin")
 	pass # Replace with function body.
 
@@ -18,12 +17,11 @@ func _ready():
 #	pass
 
 
-func _on_Coin_body_entered(body):
+func _on_coin_body_entered(body):
 	if body.has_method("slope"):
 		print("coin collected")
-		body.play_sound(1)
-		G.coins += 1
-		if G.coins >= G.mCoins:
-			G.coinTime = G.time
+		body.play_sound(2)
+		G.gems += 1
+		if G.gems >= G.mGems:
+			G.gemTime = G.time
 		self.queue_free()
-	pass # Replace with function body.

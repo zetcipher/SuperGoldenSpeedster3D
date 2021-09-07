@@ -9,7 +9,7 @@ const ACCEL2 := 7.5
 const ACCEL3 := 2.5
 const DECEL := 45
 const SHARP_DECEL := 80
-const TOP_DECEL := 0.5
+const TOP_DECEL := 1
 const AIR_ACCEL := 10
 const AIR_IDLE_DECEL := 2.5
 const TURN_SPEED := 180
@@ -47,17 +47,28 @@ var mHP : int = 5
 var boost : float = 0
 var mBoost : float = 100
 
+var homePos : Vector3 = Vector3.ZERO
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	homePos = translation
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	G.p_translation = translation
+	
+	if G.resetPlayerTranslation:
+		translation = homePos
+		vel1 = Vector3.ZERO
+		vel2 = Vector3.ZERO
+		boost = 0
+		G.resetPlayerTranslation = false
+	
 	moveLeftStrength = Input.get_action_strength("move_left")
 	moveRightStrength = Input.get_action_strength("move_right")
 	moveUpStrength = Input.get_action_strength("move_up")
@@ -123,6 +134,7 @@ func _physics_process(delta):
 	var trailTimer: float
 	
 	if not is_on_floor() and Input.is_action_just_pressed("action2"):
+		play_sound(4)
 		hspeed = 0
 		trailTimer = 5
 		vv = 120 * Vector3.DOWN
@@ -179,6 +191,7 @@ func _physics_process(delta):
 	if boostButton and boost < mBoost + 10:
 		boost += (75 / (hspeed * 0.015 + 0.5)) * delta
 	if boostReleased and boost >= mBoost - 2 and hspeed > 0.05:
+		play_sound(3)
 		var boostamt = (100 / (hspeed * 0.25 + 1))
 		if boostamt > 30:
 			boostamt = 30
@@ -346,3 +359,18 @@ func adjust_facing(p_facing, p_target, p_step, p_adjust_rate, current_gn):
 	ang = (ang - a) * s
 
 	return (n * cos(ang) + t * sin(ang)) * p_facing.length()
+
+func play_sound(sound: int) -> void:
+	match sound:
+		0:
+			if is_on_floor(): $footstep.play()
+		1:
+			$coinsound.play()
+		2:
+			$gemsound.play()
+		3:
+			$boostsound.play()
+		4:
+			$dropsound.play()
+		_:
+			print("invalid sound")

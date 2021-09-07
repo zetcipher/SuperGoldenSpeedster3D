@@ -155,6 +155,17 @@ margin_bottom = 478.0
 custom_fonts/font = ExtResource( 2 )
 text = "Close"
 
+[node name="reset" type="Button" parent="."]
+margin_left = 297.0
+margin_top = 276.0
+margin_right = 504.0
+margin_bottom = 327.0
+custom_fonts/font = ExtResource( 2 )
+text = "Restart Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Filtering" type="CheckButton" parent="."]
 margin_left = 13.0
 margin_top = 190.0
@@ -184,3 +195,4 @@ text = "Scanlines"
 
 [connection signal="pressed" from="Apply" to="." method="_on_Apply_pressed"]
 [connection signal="pressed" from="Close" to="." method="_on_Close_pressed"]
+[connection signal="pressed" from="reset" to="." method="_on_reset_pressed"]

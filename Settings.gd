@@ -13,6 +13,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+#	if not visible:
+#		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+#	else:
+#		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
 	rect_scale = Vector2.ONE * (G.screenRes.y / 480)
 	
 	$renderscaleoutput.text = str($RenderScale.value, "%")
@@ -53,3 +58,7 @@ func _on_Apply_pressed():
 
 func _on_Close_pressed():
 	self.hide()
+
+
+func _on_reset_pressed():
+	G.reset()

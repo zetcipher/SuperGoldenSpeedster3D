@@ -18,6 +18,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if not G.title:
+		$CanvasLayer/title.hide()
+	
+	$CanvasLayer/title.scale = Vector2(OS.window_size.x / 426, OS.window_size.y / 240)
 	viewScale = OS.window_size.y / 240
 	$viewportMesh.get_mesh().size = OS.window_size
 	$viewportMesh.position = OS.window_size / 2
