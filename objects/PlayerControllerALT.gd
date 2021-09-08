@@ -38,6 +38,7 @@ onready var gravityStrength = 75
 onready var intialPos = translation
 
 var slopeAccelMult : float = 1
+var stickySlopes = true
 
 onready var camera = $CameraContainer/TrackballCamera
 
@@ -126,11 +127,11 @@ func _physics_process(delta):
 		upvector = Vector3.UP
 		floorNorm = Vector3.UP
 	
-	slopeAccelMult = (-dir.y * 8) + 1
+	slopeAccelMult = (-dir.y * 6) + 1.5
 	#print(slopeAccelMult)
 	
 	var boostButton = Input.is_action_pressed("action1")
-	var boostReleased = Input.is_action_just_released("action1")
+	var boostAttempt = Input.is_action_just_pressed("action1")
 	var trailTimer: float
 	
 	if not is_on_floor() and Input.is_action_just_pressed("action2"):
@@ -139,10 +140,17 @@ func _physics_process(delta):
 		trailTimer = 5
 		vv = 120 * Vector3.DOWN
 	
+	if floorNorm.y < 0.8:
+		stickySlopes = false
+	else:
+		stickySlopes = true
+	
 	if not is_on_floor():
 		vv += gravityVector * (delta * gravityStrength)
 	elif not jumpAttempt:
-		vv += gravityVector * (delta * gravityStrength / 8)
+		if not stickySlopes:
+			vv += gravityVector * (delta * gravityStrength / 8 + ((hspeed + 0.001) / 25))
+		else: vv.y = 0
 		if vv.y < -12:
 			vv.y = -12
 	
@@ -188,21 +196,21 @@ func _physics_process(delta):
 	
 	if hspeed > TOP_SPEED3 - 1 and trailTimer < 3:
 		trailTimer = 2
-	if boostButton and boost < mBoost + 10:
-		boost += (75 / (hspeed * 0.015 + 0.5)) * delta
-	if boostReleased and boost >= mBoost - 2 and hspeed > 0.05:
+	if boost < mBoost + 10:
+		boost += (75 / (hspeed * 0.010 + 0.5)) * delta
+	if boostAttempt and boost >= mBoost - 2 and hspeed > 0.05:
 		play_sound(3)
-		var boostamt = (100 / (hspeed * 0.25 + 1))
-		if boostamt > 30:
-			boostamt = 30
+		var boostamt = (100 / (hspeed * 0.20 + 1))
+		if boostamt > 40:
+			boostamt = 40
 		if boostamt < 5:
 			boostamt = 5
 		print(boostamt)
 		hspeed += boostamt
 		trailTimer = 10
 		boost = 0
-	if not boostButton:
-		boost = 0
+#	if boostButton:
+#		boost = 0
 	
 	if trailTimer > 0:
 		if trailTimer > 3:
@@ -239,6 +247,7 @@ func _physics_process(delta):
 	#print($CameraContainer.rotation_degrees)
 
 	if jumpAttempt and is_on_floor():
+		play_sound(5)
 		snapVec = Vector3.ZERO
 		var jumpVel = (JUMP_FORCE * (1 + hspeed / 150)) * floorNorm
 		hv.x += jumpVel.x
@@ -372,5 +381,7 @@ func play_sound(sound: int) -> void:
 			$boostsound.play()
 		4:
 			$dropsound.play()
+		5:
+			$jumpsound.play()
 		_:
 			print("invalid sound")

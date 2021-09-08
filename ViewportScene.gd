@@ -13,6 +13,7 @@ func _ready():
 	$viewportMesh.position = OS.window_size / 2
 	$CanvasLayer/scanlineMesh.get_mesh().size = OS.window_size
 	$CanvasLayer/scanlineMesh.position = OS.window_size / 2
+	print($Viewport.msaa)
 	pass # Replace with function body.
 
 
@@ -20,6 +21,9 @@ func _ready():
 func _process(delta):
 	if not G.title:
 		$CanvasLayer/title.hide()
+	
+	if G.camPath != null:
+		get_node(G.camPath).mouse_enabled = G.mouseLook
 	
 	$CanvasLayer/title.scale = Vector2(OS.window_size.x / 426, OS.window_size.y / 240)
 	viewScale = OS.window_size.y / 240
@@ -41,6 +45,12 @@ func _process(delta):
 	else:
 		$CanvasLayer/scanlineMesh.hide()
 	
+	$Viewport.msaa = G.AA
+	if G.AA <= 0:
+		$Viewport.fxaa = false
+	else:
+		$Viewport.fxaa = true
+	
 	if Input.is_action_just_pressed("pause") and settingsBuffer >= 5:
 		if $CanvasLayer/Settings.visible == true:
 			$CanvasLayer/Settings.hide()
@@ -52,3 +62,7 @@ func _process(delta):
 	if settingsBuffer < 5:
 		settingsBuffer += 1
 	
+
+func _input(event):  # this allows overriding through inheritance
+	if G.camPath != null:
+		get_node(G.camPath).call("_input", event)

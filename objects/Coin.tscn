@@ -5,7 +5,7 @@
 [ext_resource path="res://objects/coinMaterial.tres" type="Material" id=3]
 
 [sub_resource type="SphereShape" id=1]
-radius = 1.41274
+radius = 2.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "spin"

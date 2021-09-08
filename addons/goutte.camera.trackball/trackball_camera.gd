@@ -115,7 +115,6 @@ var _dragInertia = Vector2.ZERO
 var _zoomInertia = 0.0
 var _referenceTransform
 
-
 func _ready():  # this allows overriding through inheritance
 	ready()
 #	set_reference_transform(self.transform)
@@ -160,6 +159,8 @@ func handle_mouse_input(event):
 
 
 func _process(delta):
+	G.camPath = self.get_path()
+	
 	process_mouse(delta)
 	process_keyboard(delta)
 	process_joystick(delta)

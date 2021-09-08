@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://objects/PlayerControllerALT.gd" type="Script" id=1]
 [ext_resource path="res://addons/goutte.camera.trackball/trackball_camera.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://sounds/Pickup_Coin6.wav" type="AudioStream" id=10]
 [ext_resource path="res://sounds/slash2.wav" type="AudioStream" id=11]
 [ext_resource path="res://sounds/slash6.wav" type="AudioStream" id=12]
+[ext_resource path="res://sounds/jump.wav" type="AudioStream" id=13]
 
 [sub_resource type="SphereShape" id=4]
 
@@ -505,7 +506,7 @@ size = 0.1
 far = 750.0
 script = ExtResource( 2 )
 stabilize_horizon = true
-mouse_enabled = false
+mouse_move_mode = true
 keyboard_enabled = true
 joystick_strength = 1.5
 action_up = "dontcaredidntask"
@@ -546,6 +547,10 @@ pitch_scale = 0.78
 stream = ExtResource( 12 )
 volume_db = -12.711
 pitch_scale = 0.78
+
+[node name="jumpsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -8.667
 
 [node name="footstep" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )

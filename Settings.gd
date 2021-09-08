@@ -13,12 +13,19 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-#	if not visible:
-#		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-#	else:
-#		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if not visible and not G.title and G.mouseLook:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	rect_scale = Vector2.ONE * (G.screenRes.y / 480)
+	if G.screenRes.y < G.screenRes.x * 0.75:
+		rect_scale = Vector2.ONE * (G.screenRes.y / 480)
+	else:
+		rect_scale = Vector2.ONE * (G.screenRes.x / 854)
+	rect_position.y = (G.screenRes.y / 2)
+	print(G.screenRes.y / 2)
+	
+	$AALabel.text = str("FXAA - ", $AA.value)
 	
 	$renderscaleoutput.text = str($RenderScale.value, "%")
 	if $useTargetRes.pressed:
@@ -43,6 +50,8 @@ func grabSettings():
 	$useTargetRes.pressed = G.useTargetRes
 	$Filtering.pressed = G.filtering
 	$Scanlines.pressed = G.scanlines
+	$AA.value = G.AA
+	$Mouselook.pressed = G.mouseLook
 
 func _on_Apply_pressed():
 	OS.window_size = Vector2($HRes.value, $VRes.value)
@@ -52,6 +61,8 @@ func _on_Apply_pressed():
 	G.renderScale = $RenderScale.value / 100
 	G.filtering = $Filtering.pressed
 	G.scanlines = $Scanlines.pressed
+	G.AA = $AA.value
+	G.mouseLook = $Mouselook.pressed
 	
 	G.saveSettings()
 

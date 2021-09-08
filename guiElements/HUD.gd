@@ -13,6 +13,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if G.title:
+		$Control.hide()
+	else:
+		$Control.show()
 	$Control/LeftSide/FPS.text = str("FPS: ", G.FPS)
 	
 	var scaleFactor = 1
@@ -33,10 +37,19 @@ func _process(delta):
 	$Control/RightSide/Speedometer.max_value = G.p_mSpeed
 	$Control/RightSide/Speedometer.value = G.p_speed
 	
+	var gemMinutes = int(G.gemTime) / 60
+	var gemSeconds = int(G.gemTime) % 60
+	var gemMSeconds = (G.gemTime - gemMinutes - gemSeconds) * 1000
+	
+	var coinMinutes = int(G.coinTime) / 60
+	var coinSeconds = int(G.coinTime) % 60
+	var coinMSeconds = (G.coinTime - coinMinutes - coinSeconds) * 1000
+	
+	
 	if G.gemTime > 0:
 		$Control/Center/gemsfound.show()
 	if G.coinTime > 0:
 		$Control/Center/coinsfound.show()
-	$Control/Center/gemsfound.text = str("All Gems Found! - Your Time: ", G.gemTime)
-	$Control/Center/coinsfound.text = str("All Coins Found! - Your Time: ", G.coinTime)
+	$Control/Center/gemsfound.text = str("All Gems Found! - Time: ", int(gemMinutes), ":", int(gemSeconds), ".", int(gemMSeconds))
+	$Control/Center/coinsfound.text = str("All Coins Found! - Time: ", int(coinMinutes), ":", int(coinSeconds), ".", int(coinMSeconds))
 	#$Control/Bars/HealthMeter.frame = G.p_HP
